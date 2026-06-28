@@ -7,6 +7,7 @@ public class RequestUtils {
 	public HttpResponse<String> sendRequest(String url, String method, Map<String, String> headers, String body) {
 		Request request = new Request();
 		if (method.equalsIgnoreCase(HttpMethod.GET.toString())) {
+			System.out.println(url);
 			request.sendGetRequest(url, headers);
 		}
 		else if (method.equalsIgnoreCase(HttpMethod.POST.toString())) {
