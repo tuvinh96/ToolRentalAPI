@@ -8,6 +8,8 @@ Feature: register API
       | url                            | method |
       | https://reqres.in/api/register | POST   |
     Given I have request body
+      | requestBody                         |
+      | UserRegister\\User_RequestBody.json |
     When send request
     Then Api responds status code "<StatusCode>"
     Then Api responds body

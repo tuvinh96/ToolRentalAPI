@@ -69,12 +69,12 @@ public class CheckResponseWhenSendRequestSuccessfullySteps {
 		newUrl = url.replace("@category", givenCategory).replace("@results", givenResult).replace("@available", givenAvailable);
 	}
 
-	@When("send request")
-	public void send_request_with_valid_url_and_method_and_params() {
-		RequestUtils req = new RequestUtils();
-		response = req.sendRequest(newUrl, method, headers, "");
-		
-	}
+//	@When("send request")
+//	public void send_request_with_valid_url_and_method_and_params() {
+//		RequestUtils req = new RequestUtils();
+//		response = req.sendRequest(newUrl, method, headers, "");
+//		
+//	}
 
 	@Then("Api responds status code {string} and list of tools")
 	public void api_responds_status_code_and_list_of_tools(String expectedStatusCode) {
