@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import common.Context;
 import common.Request;
 import common.RequestUtils;
 import common.ScenarioContext;
@@ -34,7 +35,7 @@ public class CheckResponseWhenSendRequestSuccessfullySteps {
 	String available;
 	HttpResponse<String> response;
 	Map<String, String> headers = new HashMap<String, String>();
-	private ScenarioContext scenarioContext;
+	private final ScenarioContext scenarioContext;
 	
 	public CheckResponseWhenSendRequestSuccessfullySteps(ScenarioContext scenarioContext) {
 		this.scenarioContext = scenarioContext;
@@ -49,16 +50,16 @@ public class CheckResponseWhenSendRequestSuccessfullySteps {
 			String value = header.get("value");
 			headers.put(key,value);
 		}
-		scenarioContext.setContext("headers", headers);
+		scenarioContext.setContext(Context.HEADERS, headers);
 	}
 
 	@Given("I have url and method")
 	public void i_have_url_and_method(DataTable urlAndMethodTable) {
 		List<Map<String, String>> originalUrlMethods = urlAndMethodTable.asMaps(String.class, String.class);
 		url = originalUrlMethods.get(0).get("url");
-		scenarioContext.setContext("url",url);
+		scenarioContext.setContext(Context.URL ,url);
 		method = originalUrlMethods.get(0).get("method");
-		scenarioContext.setContext("method", method);
+		scenarioContext.setContext(Context.METHOD, method);
 	}
 	
 	@Given("I have {string} and {string} of tools and {string} status")
