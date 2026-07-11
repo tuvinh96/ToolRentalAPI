@@ -11,8 +11,7 @@ public class JsonUtils {
 			String projectPath = System.getProperty("user.dir") + "/testcase/TestData/";
 			String sourceFilePath = projectPath + fileName;
 			String destinationFilePath = projectPath + fileName.replace(".json", "_Temp.json");
-			String requestBody = copyJsonFile(new File(sourceFilePath), new File(destinationFilePath));
-			String originalFile = new String(Files.readAllBytes(Paths.get(destinationFilePath)));
+			jsonContent = copyJsonFile(new File(sourceFilePath), new File(destinationFilePath));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
