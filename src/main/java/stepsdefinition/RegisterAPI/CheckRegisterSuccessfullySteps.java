@@ -1,8 +1,10 @@
 package stepsdefinition.RegisterAPI;
 
+import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
 
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.Map;
 
 import common.Context;
@@ -49,6 +51,17 @@ public class CheckRegisterSuccessfullySteps {
 
 	@Then("Api responds body")
 	public void api_responds_body() {
+		JsonUtils jsonUtils = new JsonUtils();
+		ArrayList<String> ids = jsonUtils.getDataByKey(response.body(), "id");
+		ArrayList<String> tokens = jsonUtils.getDataByKey(response.body(), "token");
+		for (String id : ids) {
+			boolean checked = !id.isEmpty() || !id.isBlank();
+			assertTrue(checked);
+		}
+		for (String token : tokens) {
+			boolean checked = !token.isEmpty() || !token.isBlank();
+			assertTrue(checked);
+		}
 	}
 
 }

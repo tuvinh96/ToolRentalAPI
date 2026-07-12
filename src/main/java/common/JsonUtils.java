@@ -3,6 +3,12 @@ package common;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class JsonUtils {
 	public String readJsonFile(String fileName) {
@@ -34,5 +40,48 @@ public class JsonUtils {
 		return jsonContent;
 	}
 	
+	public boolean isCheckJsonArray(String jsonBody) {
+		boolean result = false;
+		JSONParser parser = new JSONParser();
+		Object jsonObject;
+		try {
+			jsonObject = parser.parse(jsonBody);
+			if (jsonObject instanceof JSONArray) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<String> getDataByKey(String json, String key) {
+		ArrayList<String> results = new ArrayList<>();
+		JSONParser parser = new JSONParser();
+		if (isCheckJsonArray(json)) {
+			try {
+				JSONArray jsonArray = (JSONArray) parser.parse(json);
+				for (Object obj : jsonArray) {
+					JSONObject jsonObject = (JSONObject) obj;
+					if (jsonObject.containsKey(key)) {
+					results.add(jsonObject.get(key).toString());
+					}
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				JSONObject jsonObject = (JSONObject) parser.parse(json);
+				if (jsonObject.containsKey(key)) {
+					results.add(jsonObject.get(key).toString());
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return results;
+	}
 	
 }
