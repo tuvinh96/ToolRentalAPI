@@ -10,7 +10,8 @@ Feature: ToolsAPITesting
       | https://simple-tool-rental-api.glitch.me/tools?category=@category&results=@results&available=@available | GET    |
     Given I have "<category>" and "<result>" of tools and "<available>" status
     When send request
-    Then Api responds status code "<StatusCode>" and list of tools
+    Then Api responds status code "<StatusCode>"
+    Then Api responds list of tools correctly
 
     Examples:
       | category | result | available | StatusCode |

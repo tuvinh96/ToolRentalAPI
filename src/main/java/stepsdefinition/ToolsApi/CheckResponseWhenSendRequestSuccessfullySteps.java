@@ -31,7 +31,6 @@ import io.cucumber.java.en.When;
 public class CheckResponseWhenSendRequestSuccessfullySteps {
 	String url;
 	String method;
-	String newUrl;
 	String category;
 	int result;
 	String available;
@@ -69,20 +68,29 @@ public class CheckResponseWhenSendRequestSuccessfullySteps {
 		category = givenCategory;
 		result = Integer.parseInt(givenResult);
 		available = givenAvailable;
-		newUrl = url.replace("@category", givenCategory).replace("@results", givenResult).replace("@available",
+		String newUrl = url.replace("@category", givenCategory).replace("@results", givenResult).replace("@available",
 				givenAvailable);
+		scenarioContext.setContext(Context.URL, newUrl);
 	}
 
 	@When("send request")
 	public void send_request_with_valid_url_and_method_and_params() {
+		String newUrl = scenarioContext.getContext(Context.URL).toString();
+		String newMethod = scenarioContext.getContext(Context.METHOD).toString();
+		Map<String, String> newHeaders = (Map<String, String>) scenarioContext.getContext(Context.HEADERS);
 		RequestUtils req = new RequestUtils();
-		response = req.sendRequest(newUrl, method, headers, "");
+		response = req.sendRequest(newUrl, newMethod, newHeaders, "");
 
 	}
 
-	@Then("Api responds status code {string} and list of tools")
-	public void api_responds_status_code_and_list_of_tools(String expectedStatusCode) {
+	@Then("Api responds status code {string}")
+	public void api_responds_status_code(String expectedStatusCode) {
 		assertEquals(Integer.parseInt(expectedStatusCode), response.statusCode());
+		
+	}
+	
+	@Then("Api responds list of tools correctly")
+	public void api_responds_list_of_tools() {
 		String responseJson = response.body();
 		JsonUtils jsonUtils = new JsonUtils();
 		ArrayList<String> ids = jsonUtils.getDataByKey(responseJson, "id");
@@ -109,5 +117,4 @@ public class CheckResponseWhenSendRequestSuccessfullySteps {
 		}
 		assertTrue(isStockChecked);
 	}
-
 }
