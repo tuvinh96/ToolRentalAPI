@@ -2,9 +2,9 @@ Feature: ToolsAPITesting
 
   Scenario Outline: Check response when send request successfully
     Given I have header
-      | key             | value            |
-      | Accept-Encoding | gzip,deflate,br  |
-      | Accept          | application/json |
+      | key             | value           |
+      | Accept-Encoding | gzip,deflate,br |
+      | Accept          | */*             |
     Given I have url and method
       | url                                                                                                     | method |
       | https://simple-tool-rental-api.glitch.me/tools?category=@category&results=@results&available=@available | GET    |

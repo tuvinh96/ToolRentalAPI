@@ -13,7 +13,7 @@ Feature: register API
       | requestBody                         |
       | UserRegister\\User_RequestBody.json |
     When send post request
-    Then Api responds status code "<StatusCode>"
+    Then Api responds status code with "<StatusCode>"
     Then Api responds body
 
     Examples:

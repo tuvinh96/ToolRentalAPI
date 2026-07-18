@@ -44,7 +44,7 @@ public class CheckRegisterSuccessfullySteps {
 	
 
 	
-	@Then("Api responds status code {string}")
+	@Then("Api responds status code with {string}")
 	public void api_responds_status_code(String expectedStatusCode) {
 		assertEquals(Integer.parseInt(expectedStatusCode), response.statusCode());
 	}
