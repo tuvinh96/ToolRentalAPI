@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ToolsRentalAPI">
+	<test name="HappyCase">
+
+<!--		<groups>-->
+<!--			<run>-->
+<!--				<include name="regression"/>-->
+<!--			</run>-->
+<!--		</groups>-->
+		
+		<classes>
+			<class name="stepsdefinition.ToolsApi.TestRunner" />
+		</classes>
+	</test> <!-- SampleTestNG -->
+</suite> <!-- DemoSuite -->
