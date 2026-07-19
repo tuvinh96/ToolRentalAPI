@@ -80,7 +80,7 @@ public class CheckResponseWhenSendRequestSuccessfullySteps {
 		Map<String, String> newHeaders = (Map<String, String>) scenarioContext.getContext(Context.HEADERS);
 		RequestUtils req = new RequestUtils();
 		response = req.sendRequest(newUrl, newMethod, newHeaders, "");
-
+		scenarioContext.setContext(Context.RESPONSE_BODY, response);
 	}
 
 	@Then("Api responds status code {string}")

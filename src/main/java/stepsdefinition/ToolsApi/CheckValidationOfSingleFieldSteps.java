@@ -13,7 +13,7 @@ import io.cucumber.java.en.Then;
 public class CheckValidationOfSingleFieldSteps {
 	private final ScenarioContext scenarioContext;
 	String newUrl;
-	HttpResponse<String> response;
+	
 	public CheckValidationOfSingleFieldSteps(ScenarioContext scenarioContext) {
 		this.scenarioContext = scenarioContext;
 	}
@@ -38,6 +38,8 @@ public class CheckValidationOfSingleFieldSteps {
 
 	@Then("Api responds Error message {string}")
 	public void api_responds_(String expectedMessage) {
+		@SuppressWarnings("unchecked")
+		HttpResponse<String> response = (HttpResponse<String>) scenarioContext.getContext(Context.RESPONSE_BODY);
 		JsonUtils jsonUtils = new JsonUtils();
 		if (response.statusCode() != 200) {
 			String actualMessage = jsonUtils.getDataByKey(response.body(), "error").get(0);

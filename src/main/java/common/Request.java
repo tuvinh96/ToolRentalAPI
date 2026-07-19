@@ -33,7 +33,6 @@ public class Request {
 		HttpRequest.Builder reqBuilder = HttpRequest.newBuilder().uri(URI.create(url)).POST(HttpRequest.BodyPublishers.ofString(requestBody));
 		headers.forEach((key, value) -> reqBuilder.header(key, value));
 		HttpRequest request = reqBuilder.build();
-//		HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.ALWAYS).build();
 		HttpClient client = HttpClient.newHttpClient();
 		try {
 			response = client.send(request, BodyHandlers.ofString());

@@ -17,8 +17,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class CheckRegisterSuccessfullySteps {
-	String requestBody;
-	HttpResponse<String> response;
 	private ScenarioContext scenarioContext;
 	
 	public CheckRegisterSuccessfullySteps(ScenarioContext scenarioContext) {
@@ -29,8 +27,8 @@ public class CheckRegisterSuccessfullySteps {
 	public void i_have_request_body(DataTable requestBodyTable) {
 		String requestBodyName = requestBodyTable.asMaps().get(0).get("requestBody");
 		JsonUtils jsonUtils = new JsonUtils();
-		requestBody = jsonUtils.readJsonFile(requestBodyName);
-		
+		String requestBody = jsonUtils.readJsonFile(requestBodyName);
+		scenarioContext.setContext(Context.REQUEST_BODY, requestBody);
 	}
 	
 	@When("send post request")
@@ -38,19 +36,26 @@ public class CheckRegisterSuccessfullySteps {
 		RequestUtils req = new RequestUtils();
 		String url = (String) scenarioContext.getContext(Context.URL);
 		String method = (String) scenarioContext.getContext(Context.METHOD);
+		String requestBody = (String) scenarioContext.getContext(Context.REQUEST_BODY);
+		@SuppressWarnings("unchecked")
 		Map<String, String> headers = (Map<String, String>) scenarioContext.getContext(Context.HEADERS);
-		response = req.sendRequest(url, method, headers, requestBody);
+		HttpResponse<String> response = req.sendRequest(url, method, headers, requestBody);
+		scenarioContext.setContext(Context.RESPONSE_BODY, response);
 	}
 	
 
 	
+	@SuppressWarnings("unchecked")
 	@Then("Api responds status code with {string}")
 	public void api_responds_status_code(String expectedStatusCode) {
+		HttpResponse<String> response = (HttpResponse<String>) scenarioContext.getContext(Context.RESPONSE_BODY);
 		assertEquals(Integer.parseInt(expectedStatusCode), response.statusCode());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Then("Api responds body")
 	public void api_responds_body() {
+		HttpResponse<String> response = (HttpResponse<String>) scenarioContext.getContext(Context.RESPONSE_BODY);
 		JsonUtils jsonUtils = new JsonUtils();
 		ArrayList<String> ids = jsonUtils.getDataByKey(response.body(), "id");
 		ArrayList<String> tokens = jsonUtils.getDataByKey(response.body(), "token");
