@@ -1,5 +1,6 @@
 Feature: register API
-@HappyCase
+
+  @HappyCase
   Scenario Outline: check register new user successfully
     Given I have header
       | key             | value                                   |
@@ -7,8 +8,8 @@ Feature: register API
       | Accept-Encoding | gzip,deflate,br                         |
       | Content-Type    | application/json                        |
     Given I have url and method
-      | url                            | method |
-      | https://reqres.in/api/register | POST   |
+      | url          | method |
+      | api/register | POST   |
     Given I have request body
       | requestBody                         |
       | UserRegister\\User_RequestBody.json |

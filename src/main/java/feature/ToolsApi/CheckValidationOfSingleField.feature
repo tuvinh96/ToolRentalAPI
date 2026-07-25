@@ -6,8 +6,8 @@ Feature: Check validation of single field
       | Accept-Encoding | gzip,deflate,br |
       | Accept          | */*             |
     Given I have url and method
-      | url                                            | method |
-      | https://simple-tool-rental-api.glitch.me/tools | GET    |
+      | url   | method |
+      | tools | GET    |
     Given I have data as "<FieldName1>" and "<Value1>" and "<FieldName2>" and "<Value2>" and "<FieldName3>" and "<Value3>"
     When send request
     Then Api responds status code "<StatusCode>"
