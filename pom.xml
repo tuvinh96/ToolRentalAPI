@@ -55,6 +55,7 @@
 				<version>3.10.1</version>
 				<configuration>
 					<release>25</release>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
