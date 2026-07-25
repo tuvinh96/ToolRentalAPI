@@ -6,8 +6,8 @@ Feature: ToolsAPITesting
       | Accept-Encoding | gzip,deflate,br |
       | Accept          | */*             |
     Given I have url and method
-      | url                                                                                                     | method |
-      | https://simple-tool-rental-api.glitch.me/tools?category=@category&results=@results&available=@available | GET    |
+      | url                                                            | method |
+      | tools?category=@category&results=@results&available=@available | GET    |
     Given I have "<category>" and "<result>" of tools and "<available>" status
     When send request
     Then Api responds status code "<StatusCode>"
